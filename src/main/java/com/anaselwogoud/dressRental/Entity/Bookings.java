@@ -23,6 +23,7 @@ public class Bookings {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Users user;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dress_id")
     private Dress dress;

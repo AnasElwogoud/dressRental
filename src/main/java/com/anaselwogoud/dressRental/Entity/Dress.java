@@ -17,7 +17,6 @@ public class Dress {
     private Long id;
 
     private String size;
-
     private BigDecimal   price;
     private String dressPhotoUrl;
     private String description;
