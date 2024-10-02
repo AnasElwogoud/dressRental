@@ -19,11 +19,11 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingDTO {
     private Long id;
-    private LocalDate dateFrom;
-    private LocalDate dateTo;
+    private LocalDate rentalDate;
+    private LocalDate returnDate;
+//    private boolean isReturned;
 
-    private Users user;
-
-    private Dress dress;
+    private UserDTO user;
+    private DressDTO dress;
 
 }

@@ -10,10 +10,11 @@ import java.util.List;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DressDTO {
+    private Long id;
     private String size;
     private BigDecimal price;
     private String dressPhotoUrl;
     private String description;
-    private List<Bookings> bookings;
-
+    private List<BookingDTO> bookings;
+    private boolean available; // True if the dress is available in the store
 }

@@ -1,6 +1,5 @@
 package com.anaselwogoud.dressRental.DTO;
 
-import com.anaselwogoud.dressRental.Entity.Bookings;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -15,6 +14,6 @@ public class UserDTO {
     private String name;
     private String phoneNumber;
     private String role;
-    private List<Bookings> bookings = new ArrayList<>();
+    private List<BookingDTO> bookings = new ArrayList<>();
 
 }

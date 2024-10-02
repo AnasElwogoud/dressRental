@@ -8,17 +8,19 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
+@ToString
 @Data
 @Entity
-@ToString
 public class Bookings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "Date from is required")
-    private LocalDate dateFrom;
+    private LocalDate rentalDate;
     @Future(message = "Date To must be in Future")
-    private LocalDate dateTo;
+    private LocalDate returnDate;
+
+//    private boolean isReturned;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
