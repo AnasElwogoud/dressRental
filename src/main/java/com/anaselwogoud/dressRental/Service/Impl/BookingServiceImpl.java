@@ -31,9 +31,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Response saveBooking(Long dressId, Long userId, Bookings bookingRequest) {
-
         Response response = new Response();
-
         try {
             if (bookingRequest.getReturnDate().isBefore(bookingRequest.getRentalDate())) {
                 throw new IllegalArgumentException("Check in date must come after check out date");
@@ -63,16 +61,13 @@ public class BookingServiceImpl implements BookingService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error Saving a booking: " + e.getMessage());
-
         }
         return response;
     }
 
     @Override
     public Response findBookingByConfirmationCode(String confirmationCode) {
-
         Response response = new Response();
-
         try {
             Bookings booking = bookingRepository.findByBookingConfirmationCode(confirmationCode).orElseThrow(() -> new GlobalException("Booking Not Found"));
             BookingDTO bookingDTO = Utils.mapBookingToBookingDTO(booking);
@@ -87,16 +82,13 @@ public class BookingServiceImpl implements BookingService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error Finding a booking: " + e.getMessage());
-
         }
         return response;
     }
 
     @Override
     public Response getAllBookings() {
-
         Response response = new Response();
-
         try {
             List<Bookings> bookingList = bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
             List<BookingDTO> bookingDTOList = Utils.mapBookingListToBookingListDTO(bookingList);
@@ -118,9 +110,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Response cancelBooking(Long bookingId) {
-
         Response response = new Response();
-
         try {
             bookingRepository.findById(bookingId).orElseThrow(() -> new GlobalException("Booking Does Not Exist"));
             bookingRepository.deleteById(bookingId);
@@ -134,13 +124,11 @@ public class BookingServiceImpl implements BookingService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error Cancelling a booking: " + e.getMessage());
-
         }
         return response;
     }
 
     private boolean dressIsAvailable(Bookings bookingRequest, List<Bookings> existingBookings) {
-
         return existingBookings.stream()
                 .noneMatch(existingBooking ->
                         bookingRequest.getRentalDate().equals(existingBooking.getRentalDate())

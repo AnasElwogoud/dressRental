@@ -22,11 +22,8 @@ public class BookingController {
     public ResponseEntity<Response> saveBookings(@PathVariable Long dressId,
                                                  @PathVariable Long userId,
                                                  @RequestBody Bookings bookingRequest) {
-
-
         Response response = bookingService.saveBooking(dressId, userId, bookingRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
-
     }
 
     @GetMapping("/all")
@@ -48,6 +45,4 @@ public class BookingController {
         Response response = bookingService.cancelBooking(bookingId);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
-
-
 }
