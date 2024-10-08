@@ -20,7 +20,7 @@ public class Bookings {
     @Future(message = "Date To must be in Future")
     private LocalDate returnDate;
 
-//    private boolean isReturned;
+    private String bookingConfirmationCode;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

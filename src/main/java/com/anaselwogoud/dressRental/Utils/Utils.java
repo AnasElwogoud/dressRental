@@ -55,7 +55,9 @@ public class Utils {
         bookingDTO.setId(booking.getId());
         bookingDTO.setRentalDate(booking.getRentalDate());
         bookingDTO.setReturnDate(booking.getReturnDate());
+        bookingDTO.setBookingConfirmationCode(booking.getBookingConfirmationCode());
         return bookingDTO;
+
     }
 
     public static DressDTO mapDressToDressDTOPlusBookings(Dress dress) {
@@ -99,13 +101,7 @@ public class Utils {
     }
 
     public static UserDTO mapUserToUserDTOPlusUserBookingsAndDress(Users user) {
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setRole(user.getRole());
+        UserDTO userDTO = mapUserToUserDTO(user);
 
         if (!user.getBookings().isEmpty()) {
             userDTO.setBookings(user.getBookings().stream().map(booking -> mapBookingToBookingDTOPlusBookedDress(booking, false)).collect(Collectors.toList()));

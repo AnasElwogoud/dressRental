@@ -21,7 +21,7 @@ public class BookingDTO {
     private Long id;
     private LocalDate rentalDate;
     private LocalDate returnDate;
-//    private boolean isReturned;
+    private String bookingConfirmationCode;
 
     private UserDTO user;
     private DressDTO dress;

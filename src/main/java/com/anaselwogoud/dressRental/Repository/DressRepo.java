@@ -16,9 +16,9 @@ public interface DressRepo extends JpaRepository<Dress, Long> {
     List<String> findDistinctSize();
 
 
-    @Query("SELECT d FROM Dress d WHERE d.size LIKE %:size% AND d.id NOT IN (SELECT bk.id FROM Bookings bk WHERE" +
-            "(bk.dateFrom <= :dateTo) AND (bk.dateTo >= :dateFrom))")
-    List<Dress> findAvailableDressByDatesAndTypes(LocalDate dateFrom, LocalDate dateTo, String size);
+    @Query("SELECT d FROM Dress d WHERE d.size = :size AND d.id NOT IN (SELECT bk.id FROM Bookings bk WHERE" +
+            "(bk.rentalDate <= :rentalDate) AND (bk.returnDate >= :returnDate))")
+    List<Dress> findAvailableDressByDatesAndSize(LocalDate rentalDate, LocalDate returnDate, String size);
 
 
     @Query("SELECT d FROM Dress d WHERE d.id NOT IN (SELECT b.dress.id FROM Bookings b)")
