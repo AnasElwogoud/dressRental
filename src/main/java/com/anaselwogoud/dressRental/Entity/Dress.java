@@ -22,5 +22,4 @@ public class Dress {
     private String description;
     @OneToMany(mappedBy = "dress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Bookings> bookings = new ArrayList<>();
-    private boolean available; // True if the dress is available in the store
 }

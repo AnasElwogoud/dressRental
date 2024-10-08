@@ -45,7 +45,6 @@ public class Utils {
         dressDTO.setPrice(dress.getPrice());
         dressDTO.setDressPhotoUrl(dress.getDressPhotoUrl());
         dressDTO.setDescription(dress.getDescription());
-        dressDTO.setAvailable(dressDTO.isAvailable());
         return dressDTO;
     }
 

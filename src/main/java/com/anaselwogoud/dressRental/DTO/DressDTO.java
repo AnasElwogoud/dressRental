@@ -16,5 +16,4 @@ public class DressDTO {
     private String dressPhotoUrl;
     private String description;
     private List<BookingDTO> bookings;
-    private boolean available; // True if the dress is available in the store
 }

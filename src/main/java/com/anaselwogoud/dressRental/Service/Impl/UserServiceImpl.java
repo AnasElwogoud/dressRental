@@ -150,12 +150,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response getUserById(String userId) {
+    public Response getUserById(Long userId) {
 
         Response response = new Response();
 
         try {
-            Users user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new GlobalException("User Not Found"));
+            Users user = userRepository.findById(userId).orElseThrow(() -> new GlobalException("User Not Found"));
             UserDTO userDTO = Utils.mapUserToUserDTO(user);
             response.setStatusCode(200);
             response.setMessage("successful");

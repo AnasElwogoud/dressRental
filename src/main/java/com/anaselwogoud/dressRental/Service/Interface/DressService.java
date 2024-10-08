@@ -21,7 +21,7 @@ public interface DressService {
 
     Response getDressById(Long dressId);
 
-    Response getAvailableDressesByDataAndSize(LocalDate rentalDate, LocalDate returnDate, String dressSize);
+    Response getAvailableDressesByDateAndSize(LocalDate rentalDate, LocalDate returnDate, String dressSize);
 
     Response getAllAvailableDresses();
 }

@@ -15,7 +15,7 @@ public interface UserService {
 
     Response deleteUser(String userId);
 
-    Response getUserById(String userId);
+    Response getUserById(Long userId);
 
     Response getMyInfo(String email);
 

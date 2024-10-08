@@ -12,8 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -31,7 +35,9 @@ public class DressServiceImpl implements DressService {
         Response response = new Response();
 
         try {
-            String imageUrl = "";
+            String imageUrl = uploadImageFile(photo);
+            System.out.println(imageUrl);
+            System.out.println("*********************");
             Dress dress = new Dress();
             dress.setDressPhotoUrl(imageUrl);
             dress.setPrice(dressPrice);
@@ -94,13 +100,13 @@ public class DressServiceImpl implements DressService {
     }
 
     @Override
-    public Response updateDress(Long dressId, String description, String dressSize, BigDecimal dressPrice, MultipartFile photo) {
+    public Response updateDress(Long dressId, String description, String dressSize, BigDecimal dressPrice, MultipartFile dressPhoto) {
         Response response = new Response();
 
         try {
             String imageUrl = null;
-            if (photo != null && !photo.isEmpty()) {
-//                imageUrl = awsS3Service.saveImageToS3(photo);
+            if (dressPhoto != null && !dressPhoto.isEmpty()) {
+                imageUrl = uploadImageFile(dressPhoto);
             }
             Dress dress = dressRepo.findById(dressId).orElseThrow(() -> new GlobalException("Dress Not Found"));
             if (dressSize != null) dress.setSize(dressSize);
@@ -147,7 +153,7 @@ public class DressServiceImpl implements DressService {
     }
 
     @Override
-    public Response getAvailableDressesByDataAndSize(LocalDate checkInDate, LocalDate checkOutDate, String dressSize) {
+    public Response getAvailableDressesByDateAndSize(LocalDate checkInDate, LocalDate checkOutDate, String dressSize) {
         Response response = new Response();
 
         try {
@@ -183,5 +189,37 @@ public class DressServiceImpl implements DressService {
             response.setMessage("Error getting available dresses " + e.getMessage());
         }
         return response;
+    }
+
+    public String uploadImageFile(MultipartFile file) throws IOException {
+        // Define a directory where you want to store the files
+        String uploadDir = System.getProperty("user.dir") + "/uploads/";
+
+        // Ensure the directory exists
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); // Create the directory if it doesn't exist
+        }
+
+        // Get current date and time and format it
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+
+        // Create the new file name using the date
+        String formattedDate = now.format(formatter);
+        String extension = getFileExtension(file.getOriginalFilename());
+        String newFileName = formattedDate + (extension.isEmpty() ? "" : "." + extension);
+
+        // Save the file with the new name
+        File savedFile = new File(uploadDir + newFileName);
+        file.transferTo(savedFile);
+
+        return savedFile.getAbsolutePath();
+    }
+
+    // Utility method to extract the file extension
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        return (dotIndex >= 0) ? fileName.substring(dotIndex + 1) : "";
     }
 }
