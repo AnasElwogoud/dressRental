@@ -40,7 +40,7 @@ public class UserController {
     public ResponseEntity<Response> getLoggedInUserProfile() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
+        String email = authentication.getName(); // important
         Response response = userService.getMyInfo(email);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }

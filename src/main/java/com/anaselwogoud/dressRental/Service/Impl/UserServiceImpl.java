@@ -57,9 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response login(LoginRequest loginRequest) {
-
         Response response = new Response();
-
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
             var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new GlobalException("user Not found"));
@@ -85,7 +83,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getAllUsers() {
-
         Response response = new Response();
         try {
             List<Users> userList = userRepository.findAll();
@@ -103,10 +100,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getUserBookingHistory(String userId) {
-
         Response response = new Response();
-
-
         try {
             Users user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new GlobalException("User Not Found"));
             UserDTO userDTO = Utils.mapUserToUserDTOPlusUserBookingsAndDress(user);
@@ -128,9 +122,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response deleteUser(String userId) {
-
         Response response = new Response();
-
         try {
             userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new GlobalException("User Not Found"));
             userRepository.deleteById(Long.valueOf(userId));
@@ -151,9 +143,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getUserById(Long userId) {
-
         Response response = new Response();
-
         try {
             Users user = userRepository.findById(userId).orElseThrow(() -> new GlobalException("User Not Found"));
             UserDTO userDTO = Utils.mapUserToUserDTO(user);
@@ -175,9 +165,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getMyInfo(String email) {
-
         Response response = new Response();
-
         try {
             Users user = userRepository.findByEmail(email).orElseThrow(() -> new GlobalException("User Not Found"));
             UserDTO userDTO = Utils.mapUserToUserDTO(user);

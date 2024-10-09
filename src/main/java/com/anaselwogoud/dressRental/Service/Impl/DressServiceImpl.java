@@ -137,7 +137,7 @@ public class DressServiceImpl implements DressService {
 
         try {
             Dress dress = dressRepo.findById(dressId).orElseThrow(() -> new GlobalException("Dress Not Found"));
-            DressDTO dressDTO = Utils.mapDressToDressDTO(dress);
+            DressDTO dressDTO = Utils.mapDressToDressDTOPlusBookings(dress);
             response.setStatusCode(200);
             response.setMessage("successful");
             response.setDress(dressDTO);
